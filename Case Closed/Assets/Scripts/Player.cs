@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
 
     Vector2 playerInput;
     Rigidbody2D playerRb;
+    Animator playerAnim;
 
     BoxCollider2D playerFeetCollider;
     private bool isFacingRight = true;
@@ -16,6 +17,7 @@ public class Player : MonoBehaviour
     {
         playerRb = GetComponent<Rigidbody2D>();
         playerFeetCollider = GetComponent<BoxCollider2D>();
+        playerAnim = GetComponent<Animator>();
     }
 
     void Update()
@@ -27,14 +29,14 @@ public class Player : MonoBehaviour
     void Run()
     {
 
-        //if (playerInput.x != 0)
-        //{
-        //    playerAnim.SetBool("isRunning", true);
-        //}
-        //else
-        //{
-        //    playerAnim.SetBool("isRunning", false);
-        //}
+        if (playerInput.x != 0)
+        {
+            playerAnim.SetBool("isRunning", true);
+        }
+        else
+        {
+            playerAnim.SetBool("isRunning", false);
+        }
         playerRb.linearVelocity = new Vector2(playerInput.x * moveSpeed, playerRb.linearVelocity.y);
     }
 
@@ -52,6 +54,7 @@ public class Player : MonoBehaviour
         }
         if (value.isPressed)
         {
+            playerAnim.SetTrigger("jump");
             playerRb.linearVelocity = new Vector2(0f, jumpSpeed);
         }
     }
