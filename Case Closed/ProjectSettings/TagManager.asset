@@ -13,7 +13,7 @@ TagManager:
   - UI
   - Ground
   - Background
-  - 
+  - Climbing
   - 
   - 
   - 
@@ -40,6 +40,9 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Ladder
+    uniqueID: 4275005453
     locked: 0
   - name: Player
     uniqueID: 2022302971
