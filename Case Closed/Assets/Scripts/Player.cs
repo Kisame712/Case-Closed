@@ -4,6 +4,12 @@ public class Player : MonoBehaviour
 {
     [SerializeField] float jumpSpeed;
     [SerializeField] float moveSpeed;
+    [SerializeField] float climbSpeed;
+
+    public GameObject idleContainer;
+    public GameObject climbContainer;
+    public GameObject gunContainer;
+    public GameObject grabContainer;
 
 
     Vector2 playerInput;
@@ -12,18 +18,21 @@ public class Player : MonoBehaviour
 
     BoxCollider2D playerFeetCollider;
     private bool isFacingRight = true;
+    float myGravityScale;
 
     void Start()
     {
         playerRb = GetComponent<Rigidbody2D>();
         playerFeetCollider = GetComponent<BoxCollider2D>();
         playerAnim = GetComponent<Animator>();
+        myGravityScale = playerRb.gravityScale;
     }
 
     void Update()
     {
         Run();
         Flip();
+        Climbing();
     }
 
     void Run()
@@ -72,6 +81,34 @@ public class Player : MonoBehaviour
             transform.rotation = Quaternion.Euler(0f, 0f, 0f);
             isFacingRight = true;
         }
+
+    }
+
+    void Climbing()
+    {
+        if (!playerFeetCollider.IsTouchingLayers(LayerMask.GetMask("Climbing")))
+        {
+            playerRb.gravityScale = myGravityScale;
+            playerAnim.SetBool("isClimbing", false);
+            return;
+        }
+
+        
+
+        if (playerInput.y != 0)
+        {
+            playerAnim.SetBool("isClimbing", true);
+            idleContainer.SetActive(false);
+            climbContainer.SetActive(true);
+        }
+        else
+        {
+            playerAnim.SetBool("isClimbing", false);
+            idleContainer.SetActive(true);
+            climbContainer.SetActive(false);
+        }
+        playerRb.gravityScale = 0;
+        playerRb.linearVelocity = new Vector2(playerRb.linearVelocity.x, playerInput.y * climbSpeed);
 
     }
 }
