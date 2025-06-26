@@ -1,15 +1,22 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 public class Player : MonoBehaviour
 {
+    [Header("Speed Controls")]
     [SerializeField] float jumpSpeed;
     [SerializeField] float moveSpeed;
     [SerializeField] float climbSpeed;
 
+    [Header("Animation Controls")]
     public GameObject idleContainer;
     public GameObject climbContainer;
     public GameObject gunContainer;
     public GameObject grabContainer;
+
+    [Header("Effects and references")]
+    public GameObject bullet;
+    public Transform bulletSpawnPoint;
 
 
     Vector2 playerInput;
@@ -68,6 +75,15 @@ public class Player : MonoBehaviour
         }
     }
 
+    void OnAttack(InputValue value)
+    {
+        if (value.isPressed)
+        {
+            StartCoroutine(ShootBullet());
+
+        }
+    }
+
     void Flip()
     {
 
@@ -110,5 +126,14 @@ public class Player : MonoBehaviour
         playerRb.gravityScale = 0;
         playerRb.linearVelocity = new Vector2(playerRb.linearVelocity.x, playerInput.y * climbSpeed);
 
+    }
+
+    IEnumerator ShootBullet()
+    {
+        gunContainer.SetActive(true);
+        playerAnim.SetTrigger("shoot");
+        Instantiate(bullet, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
+        yield return new WaitForSeconds(0.6f);
+        gunContainer.SetActive(false);
     }
 }
