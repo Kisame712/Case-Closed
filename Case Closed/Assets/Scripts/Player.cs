@@ -14,10 +14,18 @@ public class Player : MonoBehaviour
     public GameObject gunContainer;
     public GameObject grabContainer;
 
+    [Header("Magnet")]
+    public float flingSpeed;
+
     [Header("Effects and references")]
     public GameObject bullet;
     public Transform bulletSpawnPoint;
 
+    [Header("Timers")]
+    public float timeBetweenAttacks;
+    public float timeBetweenPulls;
+    private float nextAttackTime;
+    private float nextPullTime;
 
     Vector2 playerInput;
     Rigidbody2D playerRb;
@@ -26,6 +34,9 @@ public class Player : MonoBehaviour
     BoxCollider2D playerFeetCollider;
     private bool isFacingRight = true;
     float myGravityScale;
+
+    private bool canAttack = true;
+    private bool canPull = true;
 
     void Start()
     {
@@ -40,6 +51,8 @@ public class Player : MonoBehaviour
         Run();
         Flip();
         Climbing();
+        AttackTimer();
+        PullTimer();
     }
 
     void Run()
@@ -77,10 +90,40 @@ public class Player : MonoBehaviour
 
     void OnAttack(InputValue value)
     {
+        if (!canAttack)
+        {
+            return;
+        }
+
         if (value.isPressed)
         {
             StartCoroutine(ShootBullet());
 
+        }
+    }
+
+    void OnSprint(InputValue value)
+    {
+        if (!canPull)
+        {
+            return;
+        }
+        Magnet[] magnets = FindObjectsByType<Magnet>(FindObjectsSortMode.None);
+        bool foundOneActiveMagnet = false;
+        Magnet activeMagnet = null;
+        foreach(Magnet magnet in magnets)
+        {
+            if(magnet.magnetActive == true)
+            {
+                activeMagnet = magnet;
+                foundOneActiveMagnet = true;
+                break;
+            }
+        }
+        if (value.isPressed && foundOneActiveMagnet == true && activeMagnet!=null)
+        {
+            StartCoroutine(MagnetPull(activeMagnet));
+            foundOneActiveMagnet = false;
         }
     }
 
@@ -98,6 +141,25 @@ public class Player : MonoBehaviour
             isFacingRight = true;
         }
 
+    }
+
+    void AttackTimer()
+    {
+        if (Time.time > nextAttackTime)
+        {
+            nextAttackTime = Time.time + timeBetweenAttacks;
+            canAttack = true;
+        }
+    }
+
+    void PullTimer()
+    {
+        if (Time.time > nextPullTime)
+        {
+            nextPullTime = Time.time + timeBetweenPulls;
+            canPull = true;
+        }
+ 
     }
 
     void Climbing()
@@ -135,5 +197,19 @@ public class Player : MonoBehaviour
         Instantiate(bullet, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
         yield return new WaitForSeconds(0.6f);
         gunContainer.SetActive(false);
+        canAttack = false;
+    }
+
+    IEnumerator MagnetPull(Magnet magnet)
+    {
+        playerRb.gravityScale = 0;
+        grabContainer.SetActive(true);
+        playerAnim.SetTrigger("grab");
+        Vector2 direcionOfPull = (magnet.transform.position - transform.position).normalized;
+        playerRb.AddForce(direcionOfPull * flingSpeed, ForceMode2D.Impulse);
+        yield return new WaitForSeconds(0.6f);
+        grabContainer.SetActive(false);
+        playerRb.gravityScale = myGravityScale;
+        canPull = false;
     }
 }
