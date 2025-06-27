@@ -28,4 +28,15 @@ public class Bullet : MonoBehaviour
         bulletRb.linearVelocity = new Vector2(speed * direction, 0f);
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.tag == "Enemy")
+        {
+            Enemy enemyComponent = collision.GetComponent<Enemy>();
+            enemyComponent.TakeDamage(1);
+            Destroy(gameObject);
+        }
+    
+    }
+
 }

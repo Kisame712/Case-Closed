@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4745618014825460838}
   - component: {fileID: 4094610781493818524}
   - component: {fileID: 3874075520391063859}
+  - component: {fileID: -4845991190886788909}
   m_Layer: 0
   m_Name: Bullet
   m_TagString: Untagged
@@ -167,3 +168,16 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &-4845991190886788909
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 321138289897505776}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15622f9957204c645abfe4044365546f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletRange: 1
