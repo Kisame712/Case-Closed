@@ -46,7 +46,7 @@ GameObject:
   - component: {fileID: 1917459942922388399}
   m_Layer: 0
   m_Name: Boss
-  m_TagString: Untagged
+  m_TagString: Boss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -148,10 +148,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 20
-  moveSpeed_phase1: 2
-  moveSpeed_phase2: 4
   block: {fileID: 7107751875150284213, guid: ceb2e65bfec38834c845a3e520d4b41f, type: 3}
   spawnPosition: {fileID: 2584090540473519815}
+  finalLetter: {fileID: 7990224388681099410, guid: b5def01ec0477234497c209daf309ece, type: 3}
 --- !u!95 &1917459942922388399
 Animator:
   serializedVersion: 7

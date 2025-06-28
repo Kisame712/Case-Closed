@@ -14,11 +14,11 @@ public class Block : MonoBehaviour
         bulletRb = GetComponent<Rigidbody2D>();
         if (boss.transform.rotation == Quaternion.Euler(0f, 0f, 0f))
         {
-            direction = 1;
+            direction = -1;
         }
         else
         {
-            direction = -1;
+            direction = 1;
         }
 
     }
@@ -34,6 +34,7 @@ public class Block : MonoBehaviour
         {
             Player player = collision.GetComponent<Player>();
             player.TakeDamage(1);
+            Destroy(gameObject);
         }
     }
 }
