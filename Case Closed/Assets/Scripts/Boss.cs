@@ -3,8 +3,6 @@ using UnityEngine;
 public class Boss : MonoBehaviour
 {
     public int health;
-    public float moveSpeed_phase1;
-    public float moveSpeed_phase2;
 
     public GameObject block;
     public Transform spawnPosition;
@@ -12,13 +10,12 @@ public class Boss : MonoBehaviour
 
     Animator bossAnim;
     Rigidbody2D bossRb;
-    Player player;
+    private bool isFacingRight = false;
 
     void Start()
     {
         bossAnim = GetComponent<Animator>();
         bossRb = GetComponent<Rigidbody2D>();
-        player = FindFirstObjectByType<Player>();
     }
 
     void Update()
@@ -31,6 +28,8 @@ public class Boss : MonoBehaviour
         {
             bossAnim.SetTrigger("death");
         }
+
+        Flip();
     }
 
     public void AttackOne()
@@ -47,6 +46,22 @@ public class Boss : MonoBehaviour
     public void TakeDamage(int damageAmount)
     {
         health -= damageAmount;
+
+    }
+
+    void Flip()
+    {
+
+        if (bossRb.linearVelocity.x < 0 && isFacingRight == true)
+        {
+            transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+            isFacingRight = false;
+        }
+        else if (bossRb.linearVelocity.x > 0 && isFacingRight == false)
+        {
+            transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+            isFacingRight = true;
+        }
 
     }
 }
