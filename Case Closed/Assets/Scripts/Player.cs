@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 public class Player : MonoBehaviour
 {
     [Header("Speed Controls")]
@@ -26,6 +27,9 @@ public class Player : MonoBehaviour
     public float timeBetweenPulls;
     private float nextAttackTime;
     private float nextPullTime;
+
+    [Header("Health")]
+    public int health;
 
     Vector2 playerInput;
     Rigidbody2D playerRb;
@@ -211,5 +215,15 @@ public class Player : MonoBehaviour
         grabContainer.SetActive(false);
         playerRb.gravityScale = myGravityScale;
         canPull = false;
+    }
+
+    public void TakeDamage(int damageAmount)
+    {
+        health -= damageAmount;
+        if(health <= 0)
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
+
     }
 }
