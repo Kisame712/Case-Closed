@@ -50,11 +50,11 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    private void OnDrawGizmosSelected()
-    {
-        Handles.color = Color.red;
-        Handles.DrawWireDisc(transform.position, Vector3.forward, attackRange);
-    }
+    //private void OnDrawGizmosSelected()
+    //{
+    //    Handles.color = Color.red;
+    //    Handles.DrawWireDisc(transform.position, Vector3.forward, attackRange);
+    //}
 
     void Flip()
     {
