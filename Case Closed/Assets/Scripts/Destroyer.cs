@@ -2,10 +2,10 @@ using UnityEngine;
 
 public class Destroyer : MonoBehaviour
 {
-    public float bulletRange;
+    public float destroyAfter;
     void Start()
     {
-        Destroy(gameObject, bulletRange);  
+        Destroy(gameObject, destroyAfter);  
     }
 
 }

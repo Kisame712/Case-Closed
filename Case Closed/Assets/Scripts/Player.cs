@@ -16,11 +16,17 @@ public class Player : MonoBehaviour
     public GameObject grabContainer;
 
     [Header("Magnet")]
-    public float flingSpeed;
+    public float forceX;
+    public float forceY;
 
     [Header("Effects and references")]
     public GameObject bullet;
     public Transform bulletSpawnPoint;
+    public GameObject jumpEffect;
+    public Transform jumpEffectSpawnPoint;
+    public GameObject shootEffect;
+    public Transform shootEffectSpawnPoint;
+    public GameObject magnetEffect;
 
     [Header("Timers")]
     public float timeBetweenAttacks;
@@ -31,9 +37,16 @@ public class Player : MonoBehaviour
     [Header("Health")]
     public int health;
 
+    [Header("Audio Clips")]
+    public AudioClip jumpSound;
+    public AudioClip shootSound;
+    public AudioClip magnetSound;
+
     Vector2 playerInput;
     Rigidbody2D playerRb;
     Animator playerAnim;
+
+    AudioSource playerAudio;
 
     BoxCollider2D playerFeetCollider;
     private bool isFacingRight = true;
@@ -47,6 +60,7 @@ public class Player : MonoBehaviour
         playerRb = GetComponent<Rigidbody2D>();
         playerFeetCollider = GetComponent<BoxCollider2D>();
         playerAnim = GetComponent<Animator>();
+        playerAudio = GetComponent<AudioSource>();
         myGravityScale = playerRb.gravityScale;
     }
 
@@ -88,6 +102,8 @@ public class Player : MonoBehaviour
         if (value.isPressed)
         {
             playerAnim.SetTrigger("jump");
+            playerAudio.PlayOneShot(jumpSound, 0.8f);
+            Instantiate(jumpEffect, jumpEffectSpawnPoint.position, jumpEffectSpawnPoint.rotation);
             playerRb.linearVelocity = new Vector2(0f, jumpSpeed);
         }
     }
@@ -198,6 +214,8 @@ public class Player : MonoBehaviour
     {
         gunContainer.SetActive(true);
         playerAnim.SetTrigger("shoot");
+        Instantiate(shootEffect, shootEffectSpawnPoint.position, shootEffectSpawnPoint.rotation);
+        playerAudio.PlayOneShot(shootSound, 0.8f);
         Instantiate(bullet, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
         yield return new WaitForSeconds(0.6f);
         gunContainer.SetActive(false);
@@ -209,8 +227,11 @@ public class Player : MonoBehaviour
         playerRb.gravityScale = 0;
         grabContainer.SetActive(true);
         playerAnim.SetTrigger("grab");
-        Vector2 direcionOfPull = (magnet.transform.position - transform.position).normalized;
-        playerRb.AddForce(direcionOfPull * flingSpeed, ForceMode2D.Impulse);
+        Instantiate(magnetEffect, shootEffectSpawnPoint.position, shootEffectSpawnPoint.rotation);
+        playerAudio.PlayOneShot(magnetSound, 0.8f);
+        // Magnet pull
+        Vector2 direction = (magnet.transform.position - transform.position).normalized;
+        playerRb.AddForce(new Vector2(direction.x * forceX, direction.y * forceY), ForceMode2D.Impulse);
         yield return new WaitForSeconds(0.6f);
         grabContainer.SetActive(false);
         playerRb.gravityScale = myGravityScale;

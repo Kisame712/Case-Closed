@@ -180,4 +180,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15622f9957204c645abfe4044365546f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletRange: 1
+  destroyAfter: 1
