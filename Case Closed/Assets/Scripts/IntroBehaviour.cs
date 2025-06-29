@@ -3,8 +3,11 @@ using UnityEngine;
 public class IntroBehaviour : StateMachineBehaviour
 {
     private int randomState;
+    Boss boss;
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        boss = animator.GetComponent<Boss>();
+        boss.isInvulnerable = true;
         randomState = Random.Range(0, 3);
 
         if (randomState == 0)
@@ -30,7 +33,7 @@ public class IntroBehaviour : StateMachineBehaviour
    
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-
+        boss.isInvulnerable = false;
     }
 
 }
