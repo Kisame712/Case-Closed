@@ -30,9 +30,9 @@ public class Magnet : MonoBehaviour
         }
     }
 
-    private void OnDrawGizmosSelected()
-    {
-        Handles.color = Color.green;
-        Handles.DrawWireDisc(transform.position, Vector3.forward, activeRange);
-    }
+    //private void OnDrawGizmosSelected()
+    //{
+    //    Handles.color = Color.green;
+    //    Handles.DrawWireDisc(transform.position, Vector3.forward, activeRange);
+    //}
 }
