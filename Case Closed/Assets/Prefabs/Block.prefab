@@ -163,7 +163,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15622f9957204c645abfe4044365546f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletRange: 4
+  destroyAfter: 4
 --- !u!50 &2407442176866584855
 Rigidbody2D:
   serializedVersion: 5

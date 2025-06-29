@@ -2,6 +2,8 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 public class Player : MonoBehaviour
 {
     [Header("Speed Controls")]
@@ -36,6 +38,7 @@ public class Player : MonoBehaviour
 
     [Header("Health")]
     public int health;
+    public Slider healthSlider;
 
     [Header("Audio Clips")]
     public AudioClip jumpSound;
@@ -62,6 +65,9 @@ public class Player : MonoBehaviour
         playerAnim = GetComponent<Animator>();
         playerAudio = GetComponent<AudioSource>();
         myGravityScale = playerRb.gravityScale;
+        healthSlider.minValue = 0;
+        healthSlider.maxValue = health;
+        healthSlider.value = healthSlider.maxValue;
     }
 
     void Update()
@@ -108,9 +114,14 @@ public class Player : MonoBehaviour
         }
     }
 
+    private bool isMouseOverUI()
+    {
+        return EventSystem.current.IsPointerOverGameObject();
+    }
+
     void OnAttack(InputValue value)
     {
-        if (!canAttack)
+        if (!canAttack || isMouseOverUI())
         {
             return;
         }
@@ -240,6 +251,7 @@ public class Player : MonoBehaviour
     public void TakeDamage(int damageAmount)
     {
         health -= damageAmount;
+        healthSlider.value = health;
         if(health <= 0)
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
