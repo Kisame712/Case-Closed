@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEditor;
 using UnityEngine;
 
@@ -6,6 +7,8 @@ public class Enemy : MonoBehaviour
     public int health;
     public int moveSpeed;
     public float attackRange;
+
+    public GameObject bloodSplat;
 
     Rigidbody2D enemyRb;
     Player player;
@@ -40,6 +43,7 @@ public class Enemy : MonoBehaviour
     public void TakeDamage(int damage)
     {
         health -= damage;
+        Instantiate(bloodSplat, transform.position, transform.rotation);
         if(health <= 0)
         {
             Destroy(gameObject);
@@ -67,4 +71,5 @@ public class Enemy : MonoBehaviour
         }
 
     }
+
 }
