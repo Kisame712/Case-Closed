@@ -1315,25 +1315,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9cdea7bf6798c941976ddf6428477cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpSpeed: 15
-  moveSpeed: 5
+  jumpSpeed: 20
+  moveSpeed: 8
   climbSpeed: 5
   idleContainer: {fileID: 8347203416103105090}
   climbContainer: {fileID: 929333824700010999}
   gunContainer: {fileID: 5509446484159788317}
   grabContainer: {fileID: 4860998232736351601}
-  flingSpeed: 25
+  forceX: 30
+  forceY: 30
   bullet: {fileID: 321138289897505776, guid: c5ed2e3da2c640d4fa92765d43b47588, type: 3}
   bulletSpawnPoint: {fileID: 3991378481893973634}
   jumpEffect: {fileID: 6882729957756353947, guid: b0b3c403ff5f7264a8ae943c85a3d090, type: 3}
   jumpEffectSpawnPoint: {fileID: 4536132565426380080}
-  shootEffect: {fileID: 0}
-  shootEffectSpawnPoint: {fileID: 0}
+  shootEffect: {fileID: 2406475425814744308, guid: ed8857e0fa3f06d4393a80b10d27ef15, type: 3}
+  shootEffectSpawnPoint: {fileID: 6942138911300396373}
+  magnetEffect: {fileID: 8396414260877028352, guid: ed3f635c6c3b0344691ecb6d34c82ff0, type: 3}
   timeBetweenAttacks: 2
-  timeBetweenPulls: 2
-  health: 0
+  timeBetweenPulls: 1
+  health: 10
   jumpSound: {fileID: 8300000, guid: 718044ceff8e0cd4599d2d5388c72345, type: 3}
-  shootSound: {fileID: 0}
+  shootSound: {fileID: 8300000, guid: 2ce6159903234c64aa2dbdc902836df2, type: 3}
+  magnetSound: {fileID: 8300000, guid: ec407dfec6ce1d345af5949dae173ef5, type: 3}
 --- !u!114 &6435260598862850204
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -101,7 +101,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 710b7dd24ae145b4c857187c7ed6806b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  activeRange: 10
+  activeRange: 9
+  magnetActive: 0
 --- !u!95 &4063525427361280721
 Animator:
   serializedVersion: 7

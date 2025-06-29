@@ -104,7 +104,7 @@ public class Player : MonoBehaviour
             playerAnim.SetTrigger("jump");
             playerAudio.PlayOneShot(jumpSound, 0.8f);
             Instantiate(jumpEffect, jumpEffectSpawnPoint.position, jumpEffectSpawnPoint.rotation);
-            playerRb.linearVelocity = new Vector2(0f, jumpSpeed);
+            playerRb.linearVelocity += new Vector2(0f, jumpSpeed);
         }
     }
 
@@ -229,7 +229,6 @@ public class Player : MonoBehaviour
         playerAnim.SetTrigger("grab");
         Instantiate(magnetEffect, shootEffectSpawnPoint.position, shootEffectSpawnPoint.rotation);
         playerAudio.PlayOneShot(magnetSound, 0.8f);
-        // Magnet pull
         Vector2 direction = (magnet.transform.position - transform.position).normalized;
         playerRb.AddForce(new Vector2(direction.x * forceX, direction.y * forceY), ForceMode2D.Impulse);
         yield return new WaitForSeconds(0.6f);
